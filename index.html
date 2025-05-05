@@ -25,6 +25,7 @@
       flex-direction: column;
       min-height: 100vh;
       line-height: 1.6;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
     }
 
     /* Layout container */
@@ -38,11 +39,12 @@
     img {
       max-width: 100%;
       height: auto;
+      display: block;
     }
     
     .pixel-art {
       image-rendering: pixelated;
-      width: 200px;
+      max-width: 100%;
     }
 
     /* Sidebar styles */
@@ -52,29 +54,28 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 30px;
       position: sticky;
-      top: 20px;
-      height: fit-content;
-      border-radius: 10px;
-      margin: 5px;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-radius: 0 10px 10px 0;
     }
-
-    /* New profile header section */
     .profile-header {
       position: relative;
       width: 100%;
       height: 150px;
       background-image: url('bg.png');
-      background-position: center top -6px;
+      background-position: center top -6px; /* Double 'center' for perfect alignment */
       background-repeat: no-repeat;
       border-radius: 10px 10px 0 0;
       margin-bottom: 60px;
+      margin-left: 5px;
     }
 
     /* Adjust profile image positioning */
     .profile-img {
       position: absolute;
       bottom: -60px;
-      left: 50%;
+      left: 13%;
       transform: translateX(-50%);
       width: 120px;
       height: 120px;
@@ -83,23 +84,22 @@
       border: 4px solid white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       z-index: 2;
+      margin-bottom: 0px;
     }
-
     /* Adjust name positioning */
     .name {
       font-size: 1.2rem;
       font-weight: 700;
       color: #222;
-      margin: 70px 0 5px 0;
-      text-align: center;
-      width: 100%;
+      margin-bottom: 5px;
+      text-align: left;
     }
 
     .title {
       font-size: 0.9rem;
       color: #555;
       margin-bottom: 20px;
-      text-align: center;
+      text-align: left;
     }
 
     .back-button {
@@ -122,17 +122,18 @@
     .contact-social-container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 10px;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
     }
 
     .email-buttons {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
-      margin-top: 10px;
-      justify-content: center;
+      margin-top: 5px;
+      justify-content: flex-start;
       width: 100%;
     }
     
@@ -159,10 +160,10 @@
 
     .social-icons {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 15px;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 1px;
     }
     
     .social-icons a {
@@ -183,13 +184,13 @@
     .about {
       width: 100%;
       text-align: left;
-      margin-bottom: 20px;
+      margin-bottom: 2px;
     }
     
     .about h3 {
       font-size: 1.1rem;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: -1px;
       color: #222;
     }
     
@@ -233,21 +234,20 @@
     .content {
       flex: 1;
       padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: calc(100% - 370px);
+      max-width: calc(100% - 350px);
+      min-width: 300px;
     }
 
     /* Top Navigation Bar */
     .top-bar-card {
       width: 100%;
-      margin: 20px 0;
+      margin: 0 0 20px 0;
       background-color: #fff;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       border-radius: 12px;
       padding: 10px 0;
       position: sticky;
-      top: 20px;
+      top: 0;
       z-index: 100;
     }
     
@@ -361,6 +361,7 @@
       width: 100%;
       padding: 20px;
       transition: transform 0.3s;
+      overflow: hidden; /* Prevent SVG overflow */
     }
     
     .project-card:hover {
@@ -375,13 +376,12 @@
       color: #333;
     }
     
-    .project-card img {
+    .project-card svg {
       width: 100%;
+      height: auto;
+      max-height: 300px;
       border-radius: 8px;
       margin-bottom: 15px;
-      height: auto;
-      max-height: 200px;
-      object-fit: cover;
     }
     
     .project-card p {
@@ -535,7 +535,7 @@
     /* Responsive styles */
     @media (max-width: 1024px) {
       .content {
-        width: calc(100% - 370px);
+        max-width: calc(100% - 350px);
       }
     }
     
@@ -543,12 +543,14 @@
       .sidebar {
         width: 100%;
         position: relative;
-        margin: 0;
+        height: auto;
         border-radius: 0;
+        padding: 20px;
       }
       
       .content {
         width: 100%;
+        max-width: 100%;
         padding: 20px;
       }
       
@@ -557,14 +559,8 @@
         top: 0;
       }
       
-      .profile-img {
-        width: 100px;
-        height: 100px;
-        bottom: -50px;
-      }
-      
-      .name {
-        margin-top: 60px;
+      .profile-img-container {
+        justify-content: center;
       }
     }
     
@@ -586,16 +582,20 @@
       .section-title {
         font-size: 1.3rem;
       }
+      
+      .project-card svg {
+        max-height: 250px;
+      }
     }
     
     @media (max-width: 480px) {
       .sidebar {
-        padding: 20px;
+        padding: 15px;
       }
       
-      .profile-header {
-        height: 120px;
-        margin-bottom: 50px;
+      .profile-img {
+        width: 100px;
+        height: 100px;
       }
       
       .name {
@@ -612,7 +612,7 @@
       
       .email-buttons {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
       }
       
       .top-bar a {
@@ -623,6 +623,10 @@
       .project-details-container,
       .experience-details-container {
         padding: 20px;
+      }
+      
+      .project-card svg {
+        max-height: 200px;
       }
     }
   </style>
@@ -635,7 +639,7 @@
     <div class="profile-section">
       <!-- New profile header with gradient background -->
       <div class="profile-header">
-        <img src="pic.jpg" alt="Profile Picture" class="profile-img" />
+        <img src="pic.jpg" alt="Profile Picture" class="profile-img"/>
       </div>
       
       <div class="name">Irfan Muhammad Jaffar</div>
@@ -652,21 +656,25 @@
           <a href="https://medium.com/@irfanjaffar" aria-label="Medium" target="_blank">
             <i class="fab fa-medium"></i>
           </a>
+          
+            <!-- Gmail Button -->
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=irfanjaffar108@gmail.com&su=Job%20Opportunity&body=Dear%20Irfan,%0D%0A%0D%0AI%20came%20across%20your%20profile..." 
+        aria-label="Gmail" target="_blank" 
+        style="display: flex; align-items: center; justify-content: center; margin-top:6px; width: 60px;gap: 5px; height: 20px; text-align: center; font-size: 12px; background-color: #D44638; border-radius: 5px; color: white; padding: 5px; text-decoration: none;">
+       <i class="fas fa-envelope"></i>
+       <span style="white-space: nowrap;">Gmail</span>
+     </a>
+     <!-- Outlook Web Icon and Text (Small button, equal in length to icon) -->
+     <a href="mailto:irfanjaffar108@gmail.com?subject=Job%20Opportunity&body=Dear%20Irfan,%0D%0A%0D%0AI%20came%20across%20your%20profile..." 
+        aria-label="Outlook" target="_blank" 
+        style="display: flex; align-items: center; justify-content: center; margin-top: 6px; gap: 5px; width: 68px; height: 20px; text-align: center; font-size: 12px; background-color: #0072C6; border-radius: 5px; color: white; padding: 5px; text-decoration: none;">
+       <i class="fas fa-envelope"></i>
+       <span style="white-space: nowrap;">Outlook</span>
+     </a>
+          
         </div>
         
-        <div class="email-buttons">
-          <!-- Gmail Button -->
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=irfanjaffar108@gmail.com&su=Job%20Opportunity&body=Dear%20Irfan,%0D%0A%0D%0AI%20came%20across%20your%20profile..." 
-             aria-label="Gmail" target="_blank" class="email">
-            <i class="fas fa-envelope"></i> Gmail
-          </a>
-          
-          <!-- Outlook Button -->
-          <a href="mailto:irfanjaffar108@gmail.com?subject=Job%20Opportunity&body=Dear%20Irfan,%0D%0A%0D%0AI%20came%20across%20your%20profile..." 
-             aria-label="Outlook" target="_blank" class="email">
-            <i class="fas fa-envelope"></i> Outlook
-          </a>
-        </div>
+       
       </div>
       
       <div class="about">
@@ -795,95 +803,96 @@
             <span class="skills-tag">Python</span>
             <span class="skills-tag">Machine Learning</span>
           </div>
-          <svg width="400" height="300" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-            <!-- ===== BASE ASSEMBLY ===== -->
-            <!-- Mounting Platform -->
-            <rect x="150" y="300" width="100" height="20" rx="3" fill="#37474F" stroke="#263238" stroke-width="2"/>
-            <circle cx="200" cy="300" r="40" fill="#455A64" stroke="#263238" stroke-width="2"/>
-            
-            <!-- ===== ARTICULATED ARM ===== -->
-            <!-- Shoulder Joint -->
-            <circle cx="200" cy="260" r="25" fill="#607D8B">
-              <animateTransform attributeName="transform" type="rotate" values="-30 200 260;30 200 260;-30 200 260" dur="8s" repeatCount="indefinite"/>
-            </circle>
-            
-            <!-- Upper Arm (Hydraulic) -->
-            <rect x="198" y="150" width="4" height="110" fill="#546E7A" transform="rotate(-15 200 260)">
-              <animateTransform attributeName="transform" type="rotate" values="-15 200 260;45 200 260;-15 200 260" dur="6s" repeatCount="indefinite" additive="sum"/>
-            </rect>
-            
-            <!-- Elbow Joint -->
-            <circle cx="200" cy="150" r="20" fill="#78909C">
-              <animateTransform attributeName="transform" type="rotate" values="0 200 150;90 200 150;0 200 150" dur="5s" repeatCount="indefinite"/>
-            </circle>
-            
-            <!-- Forearm (Carbon Fiber) -->
-            <rect x="198" y="80" width="4" height="70" fill="#B0BEC5" transform="rotate(25 200 150)">
-              <animateTransform attributeName="transform" type="rotate" values="25;-35;25" dur="4s" repeatCount="indefinite" additive="sum" origin="200 150"/>
-            </rect>
-            
-            <!-- Wrist Assembly -->
-            <circle cx="200" cy="80" r="15" fill="#90A4AE">
-              <animateTransform attributeName="transform" type="rotate" values="0;180;360" dur="3s" repeatCount="indefinite"/>
-            </circle>
-            
-            <!-- ===== END EFFECTOR ===== -->
-            <!-- Smart Gripper -->
-            <g transform="translate(200 80)">
-              <!-- Gripper Base -->
-              <rect x="-15" y="-5" width="30" height="10" rx="2" fill="#CFD8DC"/>
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <!-- ===== BASE ASSEMBLY ===== -->
+              <!-- Mounting Platform -->
+              <rect x="150" y="300" width="100" height="20" rx="3" fill="#37474F" stroke="#263238" stroke-width="2"/>
+              <circle cx="200" cy="300" r="40" fill="#455A64" stroke="#263238" stroke-width="2"/>
               
-              <!-- Gripper Jaws -->
-              <path d="M-15 5L-25 15M-15 5L-25 -5
-                       M15 5L25 15M15 5L25 -5" 
-                    stroke="#263238" 
+              <!-- ===== ARTICULATED ARM ===== -->
+              <!-- Shoulder Joint -->
+              <circle cx="200" cy="260" r="25" fill="#607D8B">
+                <animateTransform attributeName="transform" type="rotate" values="-30 200 260;30 200 260;-30 200 260" dur="8s" repeatCount="indefinite"/>
+              </circle>
+              
+              <!-- Upper Arm (Hydraulic) -->
+              <rect x="198" y="150" width="4" height="110" fill="#546E7A" transform="rotate(-15 200 260)">
+                <animateTransform attributeName="transform" type="rotate" values="-15 200 260;45 200 260;-15 200 260" dur="6s" repeatCount="indefinite" additive="sum"/>
+              </rect>
+              
+              <!-- Elbow Joint -->
+              <circle cx="200" cy="150" r="20" fill="#78909C">
+                <animateTransform attributeName="transform" type="rotate" values="0 200 150;90 200 150;0 200 150" dur="5s" repeatCount="indefinite"/>
+              </circle>
+              
+              <!-- Forearm (Carbon Fiber) -->
+              <rect x="198" y="80" width="4" height="70" fill="#B0BEC5" transform="rotate(25 200 150)">
+                <animateTransform attributeName="transform" type="rotate" values="25;-35;25" dur="4s" repeatCount="indefinite" additive="sum" origin="200 150"/>
+              </rect>
+              
+              <!-- Wrist Assembly -->
+              <circle cx="200" cy="80" r="15" fill="#90A4AE">
+                <animateTransform attributeName="transform" type="rotate" values="0;180;360" dur="3s" repeatCount="indefinite"/>
+              </circle>
+              
+              <!-- ===== END EFFECTOR ===== -->
+              <!-- Smart Gripper -->
+              <g transform="translate(200 80)">
+                <!-- Gripper Base -->
+                <rect x="-15" y="-5" width="30" height="10" rx="2" fill="#CFD8DC"/>
+                
+                <!-- Gripper Jaws -->
+                <path d="M-15 5L-25 15M-15 5L-25 -5
+                         M15 5L25 15M15 5L25 -5" 
+                      stroke="#263238" 
+                      stroke-width="3" 
+                      stroke-linecap="round">
+                  <animate attributeName="d" 
+                           values="M-15 5L-25 15M-15 5L-25 -5 M15 5L25 15M15 5L25 -5;
+                                  M-15 5L-30 20M-15 5L-30 -10 M15 5L30 20M15 5L30 -10"
+                           dur="2.5s" 
+                           repeatCount="indefinite"/>
+                </path>
+                
+                <!-- Sensor Array -->
+                <circle cx="0" cy="0" r="5" fill="#7E57C2" opacity="0.7">
+                  <animate attributeName="r" values="5;8;5" dur="3s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+              
+              <!-- ===== CONTROL SYSTEM ===== -->
+              <!-- AI Processor -->
+              <rect x="50" y="50" width="80" height="60" rx="5" fill="#2C3E50"/>
+              <circle cx="90" cy="80" r="20" fill="#3498DB">
+                <animate attributeName="fill" values="#3498DB;#2980B9;#3498DB" dur="4s" repeatCount="indefinite"/>
+              </circle>
+              
+              <!-- Data Flow -->
+              <path d="M130 80Q160 100 180 120Q200 140 200 180" 
+                    stroke="#9B59B6" 
                     stroke-width="3" 
-                    stroke-linecap="round">
-                <animate attributeName="d" 
-                         values="M-15 5L-25 15M-15 5L-25 -5 M15 5L25 15M15 5L25 -5;
-                                M-15 5L-30 20M-15 5L-30 -10 M15 5L30 20M15 5L30 -10"
-                         dur="2.5s" 
-                         repeatCount="indefinite"/>
+                    stroke-dasharray="8 3"
+                    fill="none">
+                <animate attributeName="stroke-dashoffset" values="0;20;0" dur="5s" repeatCount="indefinite"/>
               </path>
               
-              <!-- Sensor Array -->
-              <circle cx="0" cy="0" r="5" fill="#7E57C2" opacity="0.7">
-                <animate attributeName="r" values="5;8;5" dur="3s" repeatCount="indefinite"/>
+              <!-- ===== INDUSTRIAL ENVIRONMENT ===== -->
+              <!-- Workpiece -->
+              <rect x="250" y="280" width="30" height="20" fill="#FFA000">
+                <animate attributeName="x" values="250;270;250" dur="7s" repeatCount="indefinite"/>
+              </rect>
+              
+              <!-- Status Indicator -->
+              <circle cx="350" cy="50" r="15" fill="#4CAF50">
+                <animate attributeName="fill" values="#4CAF50;#FFEB3B;#4CAF50" dur="6s" repeatCount="indefinite"/>
               </circle>
-            </g>
-            
-            <!-- ===== CONTROL SYSTEM ===== -->
-            <!-- AI Processor -->
-            <rect x="50" y="50" width="80" height="60" rx="5" fill="#2C3E50"/>
-            <circle cx="90" cy="80" r="20" fill="#3498DB">
-              <animate attributeName="fill" values="#3498DB;#2980B9;#3498DB" dur="4s" repeatCount="indefinite"/>
-            </circle>
-            
-            <!-- Data Flow -->
-            <path d="M130 80Q160 100 180 120Q200 140 200 180" 
-                  stroke="#9B59B6" 
-                  stroke-width="3" 
-                  stroke-dasharray="8 3"
-                  fill="none">
-              <animate attributeName="stroke-dashoffset" values="0;20;0" dur="5s" repeatCount="indefinite"/>
-            </path>
-            
-            <!-- ===== INDUSTRIAL ENVIRONMENT ===== -->
-            <!-- Workpiece -->
-            <rect x="250" y="280" width="30" height="20" fill="#FFA000">
-              <animate attributeName="x" values="250;270;250" dur="7s" repeatCount="indefinite"/>
-            </rect>
-            
-            <!-- Status Indicator -->
-            <circle cx="350" cy="50" r="15" fill="#4CAF50">
-              <animate attributeName="fill" values="#4CAF50;#FFEB3B;#4CAF50" dur="6s" repeatCount="indefinite"/>
-            </circle>
-            
-            <!-- Label -->
-            <text x="200" y="30" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#263238">
-              Industrial Robotic Arm v4.0
-            </text>
-          </svg>
+              
+              <!-- Label -->
+              <text x="200" y="30" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#263238">
+                Industrial Robotic Arm v4.0
+              </text>
+            </svg>
+          
           <p>Built and programmed a 5-DOF robotic arm using Arduino and C++ with integrated sensors and machine learning for object detection.</p>
           <a href="#" class="read-more" 
              data-title="Intelligent Robotic Arm for Industrial Automation"
@@ -920,88 +929,68 @@
             <span class="skills-tag">Machine Learning</span>
             <span class="skills-tag">SCADA</span>
           </div>
-          <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-            <!-- ===== LITHOLOGY COLUMN ===== -->
-            <!-- Sandstone -->
-            <rect x="50" y="40" width="200" height="60" fill="#F4D03F" stroke="#BA8B00" stroke-width="1.5"/>
-            <text x="150" y="75" font-family="Arial" font-size="12" text-anchor="middle">Sandstone (High ROP)</text>
-            
-            <!-- Shale -->
-            <rect x="50" y="100" width="200" height="50" fill="#5D6D7E" stroke="#263238" stroke-width="1.5"/>
-            <text x="150" y="130" font-family="Arial" font-size="12" text-anchor="middle" fill="white">Shale (Managed Pressure)</text>
-            
-            <!-- Limestone -->
-            <rect x="50" y="150" width="200" height="60" fill="#AAB7B8" stroke="#7F8C8D" stroke-width="1.5"/>
-            <text x="150" y="185" font-family="Arial" font-size="12" text-anchor="middle">Limestone (Adaptive RPM)</text>
-            
-            <!-- Basement -->
-            <rect x="50" y="210" width="200" height="40" fill="#7B241C" stroke="#4A235A" stroke-width="1.5"/>
-            <text x="150" y="235" font-family="Arial" font-size="12" text-anchor="middle" fill="white">Granite (Auto-Torque)</text>
-          
-            <!-- ===== ADAPTIVE DRILLING PATH ===== -->
-            <path d="M150 40
-                     C150 80 160 100 145 120
-                     C130 140 170 160 150 190
-                     C130 220 160 240 150 250" 
-                  stroke="#E74C3C" 
-                  stroke-width="3" 
-                  fill="none" 
-                  stroke-dasharray="10 5">
-              <animate attributeName="d" 
-                       values="M150 40 C150 80 160 100 145 120 C130 140 170 160 150 190 C130 220 160 240 150 250;
-                              M150 40 C150 85 155 100 145 120 C135 140 165 160 150 190 C135 220 165 240 150 250"
-                       dur="15s" 
-                       repeatCount="indefinite"/>
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG content remains the same -->
+              <!-- ===== PIPELINE SYSTEM ===== -->
+            <!-- Main Transmission Line -->
+            <path d="M50 150H250" stroke="#78909C" stroke-width="20" stroke-linecap="round">
+              <animate attributeName="stroke" values="#78909C;#76B7D6;#78909C" dur="5s" repeatCount="indefinite"/>
             </path>
-          
-            <!-- ===== AI CONTROL SYSTEM ===== -->
-            <g transform="translate(240 30)">
-              <!-- Processor -->
-              <rect width="50" height="50" rx="5" fill="#2C3E50"/>
-              <circle cx="25" cy="25" r="15" fill="#3498DB">
-                <animate attributeName="fill" values="#3498DB;#2980B9;#3498DB" dur="4s" repeatCount="indefinite"/>
+            
+            <!-- Branch Pipeline -->
+            <path d="M150 150V100" stroke="#607D8B" stroke-width="15" stroke-linecap="round"/>
+            
+            <!-- ===== LEAK DETECTION ===== -->
+            <!-- Normal Gas Flow -->
+            <circle cx="180" cy="150" r="8" fill="#00ACC1">
+              <animateMotion path="M0 0H100" dur="7s" repeatCount="indefinite"/>
+            </circle>
+            
+            <!-- Leak Event -->
+            <g transform="translate(90 150)">
+              <!-- Leak Source -->
+              <circle r="12" fill="#FF5722">
+                <animate attributeName="opacity" values="1;0.7;1" dur="1.5s" repeatCount="indefinite"/>
               </circle>
               
-              <!-- Data Lines -->
-              <path d="M0 25H-50" stroke="#9B59B6" stroke-width="2" stroke-dasharray="5 2">
-                <animate attributeName="stroke-dashoffset" values="0;10;0" dur="3s" repeatCount="indefinite"/>
+              <!-- Gas Plume -->
+              <path d="M0 0Q-15-25 0-50Q15-75 0-100" fill="none" stroke="#FF9800" stroke-width="3" opacity="0.8">
+                <animate attributeName="d" values="M0 0Q-15-25 0-50Q15-75 0-100; M0 0Q-20-30 0-60Q20-90 0-120" dur="4s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0;0.8" dur="6s" repeatCount="indefinite"/>
               </path>
             </g>
-          
-            <!-- ===== LITHOLOGY-SPECIFIC ICONS ===== -->
-            <!-- Sandstone Optimization -->
-            <g transform="translate(70 60)">
-              <circle cx="0" cy="0" r="8" fill="#F1C40F"/>
-              <text x="15" y="5" font-size="10"></text>
-            </g>
             
-            <!-- Shale Optimization -->
-            <g transform="translate(70 125)">
-              <path d="M0-5L-5 5H5Z" fill="#5DADE2"/>
-              <text x="15" y="5" font-size="10" fill="white"></text>
-            </g>
+            <!-- ===== AI MONITORING ===== -->
+            <!-- Control Center -->
+            <rect x="30" y="30" width="80" height="60" rx="5" fill="#263238"/>
+            <circle cx="50" cy="60" r="15" fill="#00ACC1">
+              <animate attributeName="fill" values="#00ACC1;#FFC107;#F44336;#00ACC1" dur="8s" repeatCount="indefinite"/>
+            </circle>
             
-            <!-- Limestone Optimization -->
-            <g transform="translate(70 180)">
-              <path d="M-5-5L5-5L0 5Z" fill="#EC7063"/>
-              <text x="15" y="5" font-size="10"></text>
-            </g>
+            <!-- Data Network -->
+            <path d="M70 60Q100 80 120 100Q140 120 150 150" stroke="#9C27B0" stroke-width="3" stroke-dasharray="8 3" fill="none">
+              <animate attributeName="stroke-dashoffset" values="0;20;0" dur="5s" repeatCount="indefinite"/>
+            </path>
             
-            <!-- Granite Optimization -->
-            <g transform="translate(70 230)">
-              <rect x="-5" y="-5" width="10" height="10" fill="#A569BD"/>
-              <text x="15" y="5" font-size="10" fill="white"></text>
-            </g>
-          
-            <!-- ===== DYNAMIC LEGEND ===== -->
-            <rect x="3" y="260" width="270" height="30" fill="#EAEDED" rx="3"/>
-            <text x="138" y="280" font-family="Arial" font-size="12" text-anchor="middle">
-              <tspan fill="#E74C3C">AI-Drilling</tspan> | 
-              <tspan fill="#F4D03F">Sandstone</tspan> | 
-              <tspan fill="#5D6D7E">Shale</tspan> | 
-              <tspan fill="#AAB7B8">Limestone</tspan> | 
-              <tspan fill="#7B241C">Granite</tspan>
+            <!-- ===== STATUS INDICATORS ===== -->
+            <!-- Pressure Gauge -->
+            <circle cx="250" cy="80" r="25" fill="#ECEFF1" stroke="#37474F" stroke-width="2"/>
+            <path d="M250 55A25 25 0 0 1 275 80" fill="none" stroke="#F44336" stroke-width="3"/>
+            <text x="250" y="85" font-family="Arial" font-size="10" text-anchor="middle">2.4MPa</text>
+            
+            <!-- Alert Beacon -->
+            <rect x="220" cy="40" width="10" height="20" rx="2" fill="#F44336">
+              <animate attributeName="fill" values="#F44336;#FFEB3B;#F44336" dur="1s" repeatCount="indefinite"/>
+            </rect>
+            
+            <!-- ===== LABELS ===== -->
+            <text x="150" y="30" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#263238">
+             
             </text>
+            <text x="90" y="280" font-family="Arial" font-size="10" text-anchor="middle" fill="#78909C">
+              Φ500mm High-Pressure Gas Line
+            </text>
+             
           </svg>
           <p>Developed ML models for pipeline leak detection using sensor data with Random Forest and SVM classifiers.</p>
           <a href="#" class="read-more" 
@@ -1038,8 +1027,9 @@
             <span class="skills-tag">AI</span>
             <span class="skills-tag">Petroleum Engineering</span>
           </div>
-          <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-            <!-- ===== LITHOLOGY COLUMN ===== -->
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG content remains the same -->
+             <!-- ===== LITHOLOGY COLUMN ===== -->
             <!-- Sandstone -->
             <rect x="50" y="40" width="200" height="60" fill="#F4D03F" stroke="#BA8B00" stroke-width="1.5"/>
             <text x="150" y="75" font-family="Arial" font-size="12" text-anchor="middle">Sandstone (High ROP)</text>
@@ -1157,21 +1147,21 @@
         <div class="research-card">
           <div style="display: inline-flex; align-items: center; gap: 10px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
             <svg width="40" height="40" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                <!-- Derrick Structure -->
-                <path d="M60 10L30 40H90L60 10Z" fill="none" stroke="#24292e" stroke-width="2"/>
-                
-                <!-- Drill Stem -->
-                <rect x="58" y="40" width="4" height="45" fill="#24292e"/>
-                
-                <!-- AI Neural Network -->
-                <circle cx="60" cy="65" r="8" fill="#3498db"/>
-                <circle cx="45" cy="80" r="5" fill="#3498db" opacity="0.8"/>
-                <circle cx="75" cy="80" r="5" fill="#3498db" opacity="0.8"/>
-                <path d="M60 57L45 72M60 57L75 72" stroke="#3498db" stroke-width="1.5" fill="none"/>
-                
-                <!-- Protection Shield (Static for medium size) -->
-                <path d="M60 85L40 105H80L60 85Z" fill="none" stroke="#e74c3c" stroke-width="2"/>
-              </svg>
+              <!-- SVG content remains the same -->
+              <path d="M60 10L30 40H90L60 10Z" fill="none" stroke="#24292e" stroke-width="2"/>
+              
+              <!-- Drill Stem -->
+              <rect x="58" y="40" width="4" height="45" fill="#24292e"/>
+              
+              <!-- AI Neural Network -->
+              <circle cx="60" cy="65" r="8" fill="#3498db"/>
+              <circle cx="45" cy="80" r="5" fill="#3498db" opacity="0.8"/>
+              <circle cx="75" cy="80" r="5" fill="#3498db" opacity="0.8"/>
+              <path d="M60 57L45 72M60 57L75 72" stroke="#3498db" stroke-width="1.5" fill="none"/>
+              
+              <!-- Protection Shield (Static for medium size) -->
+              <path d="M60 85L40 105H80L60 85Z" fill="none" stroke="#e74c3c" stroke-width="2"/>
+            </svg>
             <span style="font-size: 1.2rem; font-weight: 600; color: #24292e;">AI-Optimized Drilling to Reduce Mud Loss Across Various Lithologies</span>
           </div>
           
@@ -1192,21 +1182,21 @@
         <div class="research-card">
           <div style="display: inline-flex; align-items: center; gap: 10px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
             <svg width="40" height="40" viewBox="0 0 30 30" fill="#24292e" xmlns="http://www.w3.org/2000/svg">
-                <!-- Outer model container -->
-                <path d="M15 3L3 10V20L15 27L27 20V10L15 3Z" 
-                      stroke="#24292e" 
-                      stroke-width="1.5"
-                      fill="none"/>
-                
-                <!-- Core processor -->
-                <rect x="10" y="12" width="10" height="6" rx="1" fill="#e3b341"/>
-                
-                <!-- Data channels -->
-                <path d="M15 6L15 12M15 18L15 24M6 15L12 15M18 15L24 15" 
-                      stroke="#24292e" 
-                      stroke-width="1.5" 
-                      stroke-linecap="round"/>
-              </svg>
+              <!-- SVG content remains the same -->
+              <path d="M15 3L3 10V20L15 27L27 20V10L15 3Z" 
+              stroke="#24292e" 
+              stroke-width="1.5"
+              fill="none"/>
+        
+        <!-- Core processor -->
+        <rect x="10" y="12" width="10" height="6" rx="1" fill="#e3b341"/>
+        
+        <!-- Data channels -->
+        <path d="M15 6L15 12M15 18L15 24M6 15L12 15M18 15L24 15" 
+              stroke="#24292e" 
+              stroke-width="1.5" 
+              stroke-linecap="round"/>
+            </svg>
             <span style="font-size: 1.2rem; font-weight: 600; color: #24292e;">Machine Learning for Reservoir Characterization</span>
           </div> 
           
@@ -1249,7 +1239,7 @@
         <h1 class="project-title" id="detail-title"></h1>
         <img src="" alt="Project Image" class="project-image" id="detail-image">
         <div>
-            <h2 class="section-title">Skills</h2>
+          <h2 class="section-title">Skills</h2>
           <div id="detail-skills"></div>
         </div>
         <div>
